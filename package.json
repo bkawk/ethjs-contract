@@ -1,5 +1,9 @@
 {
   "name": "ethjs-contract",
+  "version": "1.0.0",
+  "author": "@bkawk",
+  "license": "MIT",
+  "repository": "https://github.com/bkawk/ethjs-contract",
   "description": "A Web Component that fetches an Ethereum contracts ABI and exposes a contract instance.",
   "main": "ethjs-contract.js",
   "dependencies": {

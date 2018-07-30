@@ -26,14 +26,48 @@ class EthjsContract extends PolymerElement {
         type: Object,
       },
       contractAddress: {
-        type: Object,
+        type: String,
+        observer: '_start'
       },
+      publicKey: {
+        type: String,
+      },
+      mainNet: {
+        type: Boolean,
+        value: false,
+      },
+      contractInstance: {
+        type: Object,
+        notify: true,
+        reflectToAttribute: true
+      }
     };
+  }
+
+  _start(){
+    this._fetchAbi(this.contractAddress)
+    .then((contractAbi) => {
+      if(this.publicKey){
+        this.contractInstance = this.eth.contract(contractAbi).at(this.publicKey);
+      } else {
+        this.contractInstance = this.eth.contract(contractAbi);
+      }
+    })
+    .catch((error) => {
+      reject(error);
+    });
+    
   }
 
   _fetchAbi(address){
     return new Promise((resolve, reject) => {
-      fetch(`https://ropsten.etherscan.io/api?module=contract&action=getabi&address=${address}`)
+      let net = '';
+      if(this.mainNet){
+        net = 'api';
+      } else {
+        net = 'ropsten';
+      }
+      fetch(`https://${net}.etherscan.io/api?module=contract&action=getabi&address=${address}`)
       .then((response) => {
         resolve(response.json());
       })

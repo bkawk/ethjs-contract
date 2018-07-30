@@ -6,16 +6,40 @@ A Web Component that fetches an Ethereum contracts ABI and exposes a contract in
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) and npm (packaged with [Node.js](https://nodejs.org)) installed. Run `npm install` to install your element's dependencies, then run `polymer serve` to serve your element locally.
 
+## Install ethjs-element
+
+```
+$ npm install ethjs-contract
+```
+
 ## Viewing Your Element
 
 ```
 $ polymer serve
 ```
 
-## Running Tests
-
 ```
-$ polymer test
+$ import 'ethjs-contract';
 ```
 
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
+## Basic Use
+
+```html
+<ethjs-contract  
+    contract-address="0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359"
+    contract-instance="{{contract}}">
+</ethjs-contract>
+```
+
+## Advanced Use
+
+```html
+<ethjs-contract  
+    main-net
+    contract-address="0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359"
+    public-key="0xfb6916095ca1df60bb79ce92ce3ea74c37c5d359"
+    contract-instance="{{contract}}">
+</ethjs-contract>
+```
+
+
