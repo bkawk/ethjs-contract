@@ -40,6 +40,11 @@ class EthjsContract extends PolymerElement {
         type: Object,
         notify: true,
         reflectToAttribute: true
+      },
+      error: {
+        type: String,
+        notify: true,
+        reflectToAttribute: true
       }
     };
   }
@@ -54,6 +59,7 @@ class EthjsContract extends PolymerElement {
       }
     })
     .catch((error) => {
+      this.error = error;
       reject(error);
     });
     
@@ -72,6 +78,7 @@ class EthjsContract extends PolymerElement {
         resolve(response.json());
       })
       .catch((error) => {
+        this.error = error;
         reject(error);
       });
     })
