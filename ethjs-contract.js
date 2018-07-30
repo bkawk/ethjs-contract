@@ -45,24 +45,26 @@ class EthjsContract extends PolymerElement {
         type: String,
         notify: true,
         reflectToAttribute: true
+      },
+      abi: {
+        type: String,
       }
     };
   }
 
   _start(){
-    this._fetchAbi(this.contractAddress)
-    .then((contractAbi) => {
-      if(this.publicKey){
-        this.contractInstance = this.eth.contract(contractAbi).at(this.publicKey);
-      } else {
-        this.contractInstance = this.eth.contract(contractAbi);
-      }
-    })
-    .catch((error) => {
-      this.error = error;
-      reject(error);
-    });
-    
+    let abi = '';
+    if(!this.abi){
+      abi = this._fetchAbi(this.contractAddress)
+    } else {
+      abi = this.abi;
+    }
+    // TODO ensure this gets called after the above 
+    if(this.publicKey){
+      this.contractInstance = this.eth.contract(contractAbi).at(this.publicKey);
+    } else {
+      this.contractInstance = this.eth.contract(contractAbi);
+    }
   }
 
   _fetchAbi(address){
